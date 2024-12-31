@@ -67,7 +67,7 @@ def test_row_count(data: pd.DataFrame):
     assert 15000 < data.shape[0] < 1000000
 
 
-def test_price_range(data: pd.Dataframe, min_price: float, max_price: float):
+def test_price_range(data: pd.DataFrame, min_price: float, max_price: float):
     """
     Tests that the price range is between min_price and max_price 
     """
