@@ -59,7 +59,7 @@ def go(config: DictConfig):
                 os.path.join(root_path, "src", "basic_cleaning"),
                 "main",
                 parameters={
-                    "input_artifact": "nyc_airbnb/sample.csv:v0",
+                    "input_artifact": "sample.csv:v0",
                     "output_artifact": "clean_sample.csv",
                     "output_type": "cleaned_sample",
                     "output_description": "Cleaned sample data",
@@ -125,10 +125,15 @@ def go(config: DictConfig):
             pass
 
         if "test_regression_model" in active_steps:
-
-            ##################
-            # Implement here #
-            ##################
+            # Test Regression model tagged prod
+            _ = mlflow.run(
+                os.path.join(root_path, "components", "test_regression_model"),
+                "main",
+                parameters={
+                    "mlflow_model": "random_forest_export:prod",
+                    "test_dataset": "test_data.csv:latest",
+                },
+            )
 
             pass
 
