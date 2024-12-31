@@ -1,4 +1,4 @@
-import json
+downloimport json
 
 import mlflow
 import tempfile
@@ -51,9 +51,18 @@ def go(config: DictConfig):
             )
 
         if "basic_cleaning" in active_steps:
-            ##################
-            # Implement here #
-            ##################
+            _ = mlflow.run(
+                os.path.join(root_path, "src", "basic_cleaning"),
+                "main",
+                parameters={
+                    "input_artifact": "nyc_airbnb/sample.csv:v0",
+                    "output_artifact": "clean_sample.csv",
+                    "output_type": "cleaned_sample",
+                    "output_description": "Cleaned sample data",
+                    "min_price": config["etl"]["min_price"],
+                    "max_price": config["etl"]["max_price"]
+                },
+            )
             pass
 
         if "data_check" in active_steps:
